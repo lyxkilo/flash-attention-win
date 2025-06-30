@@ -46,14 +46,13 @@ jobs:
         if: runner.os == 'Windows'
 
       - name: Install CUDA ${{ matrix.cuda }}
-        uses: Jimver/cuda-toolkit@master
+        uses: Jimver/cuda-toolkit@v0.2.24
+        # 250630 temporary issue https://github.com/Jimver/cuda-toolkit/issues/395#issuecomment-2941579978
         id: cuda-toolkit
         with:
           cuda: "${{ matrix.cuda }}"
           method: "network"
-          sub-packages: '["nvcc", "cudart", "cublas", "cufft", "curand", "cusolver", "cusparse", "visual_studio_integration"]'
-          # 250630 temporary issue https://github.com/Jimver/cuda-toolkit/issues/395#issuecomment-2941579978
-          use-github-cache: false
+          sub-packages: '["nvcc", "cudart", "cublas", "cufft", "curand", "cusolver", "cusparse", "visual_studio_integration"]'          
 
       - name: Install the latest version of uv and set the python version
         uses: astral-sh/setup-uv@v5
