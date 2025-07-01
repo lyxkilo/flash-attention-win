@@ -70,7 +70,7 @@ jobs:
           $cudaVersion = '${{ matrix.cuda }}'
           $cudaVersionPytorch = '${{ matrix.cuda }}'.Remove('${{ matrix.cuda }}'.LastIndexOf('.')).Replace('.','')
           
-          uv pip install --upgrade build setuptools wheel packaging ninja torch==${{ matrix.torchver }} psutil triton einops --extra-index-url "https://download.pytorch.org/whl/cu$cudaVersionPytorch"
+          uv pip install --upgrade build setuptools wheel packaging ninja torch==${{ matrix.torchver }} psutil triton-windows einops --extra-index-url "https://download.pytorch.org/whl/cu$cudaVersionPytorch"
 
       - name: Build Wheel
         id: build-wheel
