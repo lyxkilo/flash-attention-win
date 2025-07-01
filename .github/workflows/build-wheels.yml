@@ -75,7 +75,7 @@ jobs:
       - name: Build Wheel
         id: build-wheel
         run: |
-          --- Spawn the VS shell
+          # --- Spawn the VS shell
           if ($IsWindows) {
             Import-Module 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
             Enter-VsDevShell -VsInstallPath 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise' -DevCmdArguments '-arch=x64 -host_arch=x64'
