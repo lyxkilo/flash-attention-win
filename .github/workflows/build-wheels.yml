@@ -41,9 +41,12 @@ jobs:
         #with:
         #  submodules: 'recursive'
 
-      - name: Install VS2022 BuildTools 17.9.7
-        run: choco install -y visualstudio2022buildtools --version=117.9.7.0 --params "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --installChannelUri https://aka.ms/vs/17/release/180911598_-255012421/channel"
+      - name: Add MSBuild to PATH
         if: runner.os == 'Windows'
+        uses: microsoft/setup-msbuild@main
+        with:
+          vs-version: '[17.12,17.15)'
+          msbuild-architecture: x64
 
       - name: Install CUDA ${{ matrix.cuda }}
         uses: Jimver/cuda-toolkit@v0.2.24
@@ -55,7 +58,7 @@ jobs:
           sub-packages: '["nvcc", "cudart", "cublas", "cufft", "curand", "cusolver", "cusparse", "visual_studio_integration"]'          
 
       - name: Install the latest version of uv and set the python version
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@main
         with:
           python-version: ${{ matrix.pyver }}
 
@@ -65,7 +68,7 @@ jobs:
           $cudaVersion = '${{ matrix.cuda }}'
           $cudaVersionPytorch = '${{ matrix.cuda }}'.Remove('${{ matrix.cuda }}'.LastIndexOf('.')).Replace('.','')
           
-          uv pip install --upgrade build setuptools wheel packaging ninja torch==${{ matrix.torchver }} psutil --extra-index-url "https://download.pytorch.org/whl/cu$cudaVersionPytorch"
+          uv pip install --system --upgrade build setuptools wheel packaging ninja torch==${{ matrix.torchver }} psutil triton einops --extra-index-url "https://download.pytorch.org/whl/cu$cudaVersionPytorch"
 
       - name: Build Wheel
         id: build-wheel
