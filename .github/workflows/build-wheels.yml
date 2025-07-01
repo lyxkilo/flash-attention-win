@@ -45,7 +45,7 @@ jobs:
         if: runner.os == 'Windows'
         uses: microsoft/setup-msbuild@main
         with:
-          vs-version: '[17.12,17.15)'
+          # vs-version: '[17.12,17.15)'
           msbuild-architecture: x64
 
       - name: Install CUDA ${{ matrix.cuda }}
@@ -76,11 +76,11 @@ jobs:
         id: build-wheel
         run: |
           # --- Spawn the VS shell
-          if ($IsWindows) {
-            Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
-            Enter-VsDevShell -VsInstallPath 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools' -DevCmdArguments '-arch=x64 -host_arch=x64'
-            $env:DISTUTILS_USE_SDK=1
-          }
+          # if ($IsWindows) {
+          #   Import-Module 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
+          #   Enter-VsDevShell -VsInstallPath 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise' -DevCmdArguments '-arch=x64 -host_arch=x64'
+          #   $env:DISTUTILS_USE_SDK=1
+          # }
 
           $cudaVersion = $env:CUDAVER.Remove($env:CUDAVER.LastIndexOf('.')).Replace('.','')
           $packageVersion = $env:PCKGVER.TrimStart('v')
