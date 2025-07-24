@@ -175,20 +175,10 @@ if not SKIP_CUDA_BUILD and not IS_ROCM:
                 "FlashAttention is only supported on CUDA 11.7 and above.  "
                 "Note: make sure nvcc has a supported version by running nvcc -V."
             )
-
-    if "80" in cuda_archs():
+    
+    if "120" in cuda_archs():
         cc_flag.append("-gencode")
-        cc_flag.append("arch=compute_80,code=sm_80")
-    if CUDA_HOME is not None:
-        if bare_metal_version >= Version("11.8") and "90" in cuda_archs():
-            cc_flag.append("-gencode")
-            cc_flag.append("arch=compute_90,code=sm_90")
-        if bare_metal_version >= Version("12.8") and "100" in cuda_archs():
-            cc_flag.append("-gencode")
-            cc_flag.append("arch=compute_100,code=sm_100")
-        if bare_metal_version >= Version("12.8") and "120" in cuda_archs():
-            cc_flag.append("-gencode")
-            cc_flag.append("arch=compute_120,code=sm_120")
+        cc_flag.append("arch=compute_120,code=sm_120")
 
     # HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
     # torch._C._GLIBCXX_USE_CXX11_ABI
