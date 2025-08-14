@@ -49,7 +49,7 @@ jobs:
           msbuild-architecture: x64
 
       - name: Install CUDA ${{ matrix.cuda }}
-        uses: Jimver/cuda-toolkit@v0.2.24
+        uses: Jimver/cuda-toolkit@main
         # temporary issue https://github.com/Jimver/cuda-toolkit/issues/395#issuecomment-2941579978
         id: cuda-toolkit
         with:
