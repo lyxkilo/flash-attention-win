@@ -49,14 +49,13 @@ jobs:
           msbuild-architecture: x64
 
       - name: Install CUDA ${{ matrix.cuda }}
-        uses: Jimver/cuda-toolkit@master
+        uses: lyxkilo/cuda-toolkit@master
         # temporary issue https://github.com/Jimver/cuda-toolkit/issues/395#issuecomment-2941579978
         id: cuda-toolkit
         with:
           cuda: "${{ matrix.cuda }}"
           method: "network"
           sub-packages: '["nvcc", "cudart", "cublas", "cufft", "curand", "cusolver", "cusparse", "visual_studio_integration"]'
-          use-github-cache: false
 
       - name: Install the latest version of uv and set the python version
         uses: astral-sh/setup-uv@main
